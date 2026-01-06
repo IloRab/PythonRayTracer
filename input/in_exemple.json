@@ -1,8 +1,0 @@
-[
-{"type":"sphere", "coords":[0,0,3], "radius":1, "color":"#ff0000"},
-{"type":"sphere", "coords":[-2,0,4], "radius":1, "color":"#00ff00"},
-{"type":"sphere", "coords":[2,0,4], "radius":1, "color":"#0000ff"},
-{"type":"wall", "normal":[0,1,0], "d":1, "color":"#808080"},
-{"type":"light", "kind":"ambient", "intensity":0.2},
-{"type":"light", "kind":"point", "coords":[2,5,-2], "intensity":0.6}
-]

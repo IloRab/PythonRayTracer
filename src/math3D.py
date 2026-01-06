@@ -1,6 +1,11 @@
-import pyray as pr
 import math
-Vector3 = pr.Vector3
+from dataclasses import dataclass
+
+@dataclass
+class Vector3:
+    x: float
+    y: float
+    z: float
 
 
 def vector_neg(A):
