@@ -1,82 +1,64 @@
-import json
-from math3D import Vector3, vector_mul_scalar, vector_normalize
+from math3D import Vector3
 from objects import Sphere, Wall
-
-
-def v3(a):
-    return Vector3(float(a[0]), float(a[1]), float(a[2]))
-
-
-def hex_to_v3(s):
-    """'#rrggbb' -> Vector3(r,g,b) en 0..255"""
-    s = s.strip()
-    if s.startswith("#"):
-        s = s[1:]
-    if len(s) != 6:
-        raise ValueError(f"Couleur invalide: {s}")
-    r = int(s[0:2], 16)
-    g = int(s[2:4], 16)
-    b = int(s[4:6], 16)
-    return Vector3(r, g, b)
 
 
 def load_list_scene(path):
     """
-    Retourne: objects(list), lights(list)
-    lights = dicts simples:
-      {"type":"ambient", "intensity":0.2}
-      {"type":"point", "intensity":0.6, "position":Vector3(...)}
-      {"type":"directional", "intensity":0.2, "direction":Vector3(...)}  (optionnel)
+    Lit le fichier texte et creer les objets de la scene
     """
-    with open(path, "r", encoding="utf-8") as f:
-        items = json.load(f)
-
-    if not isinstance(items, list):
-        raise ValueError("Le JSON doit être une liste [...]")
-
     objects = []
     lights = []
 
-    for it in items:
-        t = it.get("type", "").lower()
+    print(f"Chargement de : {path}")
 
-        if t == "sphere":
-            center = v3(it["coords"])
-            radius = float(it["radius"])
-            color = hex_to_v3(it["color"])
-            spec = int(it.get("specular", 0))
-            refl = float(it.get("reflective", 0.0))
-            objects.append(Sphere(center, radius, color, specular=spec, reflective=refl))
+    try:
+        with open(path, "r") as f:
+            for line in f:
+                #On ignore les commentaires et les lignes vides
+                line = line.split('#')[0].strip()
+                if not line:
+                    continue
 
-        elif t == "wall":
-            n = vector_normalize(v3(it["normal"]))
-            d = float(it.get("d", 0.0))
-            # Plan: n·x + d = 0 -> on peut choisir un point du plan: P0 = -d * n
-            point = vector_mul_scalar(n, -d)
-            color = hex_to_v3(it["color"])
-            spec = int(it.get("specular", 0))
-            refl = float(it.get("reflective", 0.0))
-            objects.append(Wall(point, n, color, specular=spec, reflective=refl))
+                parts = line.split()
+                obj_type = parts[0].upper()
 
-        elif t == "light":
-            kind = it.get("kind", "").lower()
-            intensity = float(it["intensity"])
+                if obj_type == "SPHERE":
+                    center = Vector3(float(parts[1]), float(parts[2]), float(parts[3]))
+                    radius = float(parts[4])
+                    color = Vector3(float(parts[5]), float(parts[6]), float(parts[7]))
 
-            if kind == "ambient":
-                lights.append({"type": "ambient", "intensity": intensity})
+                    spec = int(parts[8]) if len(parts) > 8 else 0
+                    refl = float(parts[9]) if len(parts) > 9 else 0.0
 
-            elif kind == "point":
-                pos = v3(it["coords"])
-                lights.append({"type": "point", "intensity": intensity, "position": pos})
+                    objects.append(Sphere(center, radius, color, spec, refl))
 
-            elif kind == "directional":
-                direction = v3(it["direction"])
-                lights.append({"type": "directional", "intensity": intensity, "direction": direction})
+                elif obj_type == "WALL":
+                    point = Vector3(float(parts[1]), float(parts[2]), float(parts[3]))
+                    normal = Vector3(float(parts[4]), float(parts[5]), float(parts[6]))
+                    color = Vector3(float(parts[7]), float(parts[8]), float(parts[9]))
 
-            else:
-                raise ValueError(f"Kind de light inconnu: {kind}")
+                    spec = int(parts[10]) if len(parts) > 10 else 0
+                    refl = float(parts[11]) if len(parts) > 11 else 0.0
 
-        else:
-            raise ValueError(f"Type inconnu: {t}")
+                    objects.append(Wall(point, normal, color, spec, refl))
+
+                elif obj_type == "LIGHT":
+                    l_type = parts[1].lower()
+                    intensity = float(parts[2])
+
+                    if l_type == "ambient":
+                        lights.append({"type": "ambient", "intensity": intensity})
+
+                    elif l_type == "point":
+                        pos = Vector3(float(parts[3]), float(parts[4]), float(parts[5]))
+                        lights.append({"type": "point", "intensity": intensity, "position": pos})
+
+                    elif l_type == "directional":
+                        d = Vector3(float(parts[3]), float(parts[4]), float(parts[5]))
+                        lights.append({"type": "directional", "intensity": intensity, "direction": d})
+
+    except FileNotFoundError:
+        print(f"Erreur : Impossible de trouver le fichier {path}")
+        return [], []
 
     return objects, lights

@@ -1,23 +1,19 @@
-
-#Charge la scène (JSON)
-#Crée la caméra 
-#appelle le renderer
-#sauvegarde l'image
-
 import sys
 from scene_loader import load_list_scene
 from renderer import render
-from math3D import Vector3
 
 
 def main():
+    #On vérifie qu'on a bien donné un fichier en argument
     if len(sys.argv) < 2:
-        print("Usage: python main.py input/scene.json")
+        print("Erreur : il manque le fichier de la scene")
         return
 
-    objects, lights = load_list_scene(sys.argv[1])
+    filepath = sys.argv[1]
+    objects, lights = load_list_scene(filepath)
     render(objects, lights, output="output.ppm")
-    print("OK -> output.ppm")
+
+    print("Rendu termine !")
 
 
 if __name__ == "__main__":

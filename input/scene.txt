@@ -1,0 +1,28 @@
+# Description de la scene
+# SPHERE x y z radius r g b specular reflective
+# WALL px py pz nx ny nz r g b specular reflective
+# LIGHT type intensity [x y z]
+
+#---Les Spheres---
+
+#Rouge au centre
+SPHERE 0 0 3 1 255 0 0 50 0.2
+#Verte à gauche
+SPHERE -2 0 4 1 0 255 0 50 0.2
+#Bleu à droite
+SPHERE 2 0 4 1 0 0 255 50 0.2
+
+#---La map en Gris---
+
+#Sol
+WALL 0 -1 0 0 1 0 128 128 128 0 0.0
+#Mur de gauche
+WALL -4 0 0 1 0 0 128 128 128 0 0.0
+#Mur de droite
+WALL 4 0 0 -1 0 0 128 128 128 0 0.0
+#Mur du fond
+WALL 0 0 8 0 0 -1 128 128 128 0 0.0
+
+#---Lumieres---
+LIGHT ambient 0.2
+LIGHT point 0.6 2 5 -2
