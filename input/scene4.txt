@@ -1,0 +1,26 @@
+# Scene: orbit display
+# SPHERE x y z radius r g b specular reflective
+# WALL px py pz nx ny nz r g b specular reflective
+# LIGHT type intensity [x y z]
+
+# Spheres
+SPHERE 0 0 7 1.6 210 210 210 200 0.7
+SPHERE 3 0 7 0.7 220 80 80 50 0.2
+SPHERE -3 0 7 0.7 80 220 80 50 0.2
+SPHERE 0 0 10 0.7 80 80 220 50 0.2
+SPHERE 0 0 4 0.7 220 220 80 50 0.2
+SPHERE 2.5 1.5 9 0.6 220 120 40 80 0.3
+SPHERE -2.5 1.5 5 0.6 40 120 220 80 0.3
+SPHERE 2.5 -1.2 5 0.6 200 60 200 80 0.3
+SPHERE -2.5 -1.2 9 0.6 60 200 200 80 0.3
+
+# Walls
+WALL 0 -1 0 0 1 0 35 35 35 30 0.2
+WALL 0 0 16 0 0 -1 30 30 30 0 0
+WALL -7 0 0 1 0 0 20 20 20 0 0
+WALL 7 0 0 -1 0 0 20 20 20 0 0
+
+# Lights
+LIGHT ambient 0.2
+LIGHT point 0.7 4 6 -4
+LIGHT point 0.4 -6 4 2

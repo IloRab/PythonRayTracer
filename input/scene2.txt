@@ -1,0 +1,21 @@
+# Scene: cornell box
+# SPHERE x y z radius r g b specular reflective
+# WALL px py pz nx ny nz r g b specular reflective
+# LIGHT type intensity [x y z]
+
+# Spheres
+SPHERE -1.2 0 5.5 1.1 230 230 230 150 0.6
+SPHERE 1.2 -0.2 4.0 0.9 60 200 220 80 0.2
+SPHERE 0 1.6 7.0 0.8 220 120 60 80 0.3
+
+# Walls
+WALL 0 -1 0 0 1 0 60 60 60 40 0.2
+WALL 0 6 0 0 -1 0 10 10 10 0 0
+WALL -4 0 0 1 0 0 200 60 60 0 0
+WALL 4 0 0 -1 0 0 60 60 200 0 0
+WALL 0 0 10 0 0 -1 40 40 40 0 0
+
+# Lights
+LIGHT ambient 0.2
+LIGHT point 0.7 0 5 -3
+LIGHT point 0.3 -3 3 2

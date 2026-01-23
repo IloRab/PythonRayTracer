@@ -1,0 +1,23 @@
+# Scene: gallery corridor
+# SPHERE x y z radius r g b specular reflective
+# WALL px py pz nx ny nz r g b specular reflective
+# LIGHT type intensity [x y z]
+
+# Spheres
+SPHERE -3 0 4 1 220 60 60 80 0.2
+SPHERE -1 0 6 1 60 220 60 80 0.2
+SPHERE 1 0 8 1 60 60 220 80 0.2
+SPHERE 3 0 10 1 220 220 60 80 0.2
+SPHERE 0 1.5 7 0.6 230 230 230 150 0.6
+
+# Walls
+WALL 0 -1 0 0 1 0 40 40 40 20 0.3
+WALL 0 6 0 0 -1 0 10 10 10 0 0
+WALL -6 0 0 1 0 0 90 30 10 0 0
+WALL 6 0 0 -1 0 0 10 30 90 0 0
+WALL 0 0 14 0 0 -1 50 50 50 0 0
+
+# Lights
+LIGHT ambient 0.2
+LIGHT point 0.5 0 5 -2
+LIGHT directional 0.3 1 -4 2
