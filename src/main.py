@@ -4,7 +4,6 @@ from renderer import render
 
 
 def main():
-    #On vérifie qu'on a bien donné un fichier en argument
     if len(sys.argv) < 2:
         print("Erreur : il manque le fichier de la scene")
         return

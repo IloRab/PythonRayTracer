@@ -6,5 +6,4 @@ class Ray:
         self.direction = vector_normalize(direction)
 
     def point_at(self, t):
-        #Formule parametrique : P = O + t*D
         return vector_add(self.origin, vector_mul_scalar(self.direction, t))

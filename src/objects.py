@@ -24,17 +24,13 @@ class Sphere:
         Calcule l'intersection rayon/sphere
         Retourne la distance t > 0 ou None
         """
-        #Vecteur entre l'origine du rayon et le centre sphere
         oc = vector_sub(ray.origin, self.center)
 
-        #Coefficients de l'equation quadratique at^2 + bt + c = 0
         a = dot_product(ray.direction, ray.direction)
         b = 2 * dot_product(oc, ray.direction)
         c = dot_product(oc, oc) - self.radius * self.radius
 
         delta = b * b - 4 * a * c
-
-        #Pas de solution = pas d'intersection
         if delta < 0:
             return None
 
@@ -42,7 +38,6 @@ class Sphere:
         t1 = (-b - sqrt_delta) / (2 * a)
         t2 = (-b + sqrt_delta) / (2 * a)
 
-        #On renvoie la plus petite distance positive
         if t1 > 0:
             return t1
         if t2 > 0:
@@ -66,11 +61,9 @@ class Wall:
         """ Intersection rayon/plan """
         denom = dot_product(ray.direction, self.normal)
 
-        #Si denom est nul, le rayon est parallele au plan
         if abs(denom) < 1e-6:
             return None
 
-        #Formule intersection plan : t = (P0 - Origin) . N / (D . N)
         t = dot_product(vector_sub(self.point, ray.origin), self.normal) / denom
 
         if t > 0:

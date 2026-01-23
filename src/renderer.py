@@ -7,7 +7,6 @@ from ray import Ray
 from image import save_ppm
 from lighting import compute_lighting
 
-#---Parametres de la Camera et de l'Ecran---
 WIDTH = 800
 HEIGHT = 600
 
@@ -54,7 +53,6 @@ def trace_ray(ray, depth, objects, lights):
     if obj is None:
         return BACKGROUND
 
-    # Point d'intersection P et Normale N
     P = ray.point_at(t)
     N = obj.normal_at(P)
     V = vector_sub(CAMERA_POS, P)
@@ -62,7 +60,6 @@ def trace_ray(ray, depth, objects, lights):
     light_i = compute_lighting(P, N, V, obj.specular, lights, objects)
     local_color = vector_mul_scalar(obj.color, light_i)
 
-    #Gestion de la Reflexion en Recursif
     r = obj.reflective
     if depth <= 0 or r <= 0.0:
         return clamp_color(local_color)
